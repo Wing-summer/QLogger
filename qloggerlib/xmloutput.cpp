@@ -26,7 +26,6 @@
 
 #include <QDir>
 #include <QDateTime>
-#include <QTextCodec>
 
 namespace qlogger
 {
@@ -41,7 +40,7 @@ XmlOutput::~XmlOutput()
     if(!outputFile.isNull() && outputFile->isOpen())
     {
         // end current xml file.
-        *outputStream << ROOT_CLOSE_TAG << endl;
+        *outputStream << ROOT_CLOSE_TAG << Qt::endl;
     }
     PlainTextOutput::close();
 }
@@ -58,7 +57,7 @@ void XmlOutput::write(const QString message,
             && (outputFile->size() > configuration->getFileMaxSizeInBytes()))
     {
         // end current xml file.
-        *outputStream << ROOT_CLOSE_TAG << endl;
+        *outputStream << ROOT_CLOSE_TAG << Qt::endl;
     }
 
     if(outputFile.isNull() //if there is no file
@@ -68,19 +67,19 @@ void XmlOutput::write(const QString message,
         createNextFile(); // create a new file
 
         // start the xml file.
-        *outputStream << XML_TAG << endl;
-        *outputStream << ROOT_OPEN_TAG << endl;
+        *outputStream << XML_TAG << Qt::endl;
+        *outputStream << ROOT_OPEN_TAG << Qt::endl;
 
     }
 
-    *outputStream << LOG_TAG_OPEN << endl;
-    *outputStream << DATE_TIME_TAG.arg(timestamp.toString(configuration->getTimestampFormat())) << endl;
-    *outputStream << LEVEL_TAG.arg(lvl) << endl;
-    *outputStream << OWNER_TAG.arg(owner) << endl;
-    *outputStream << MESSAGE_TAG.arg(message) << endl;
-    *outputStream << LINE_TAG.arg(lineNumber) << endl;
-    *outputStream << FUNCTION_TAG.arg(functionName) << endl;
-    *outputStream << LOG_TAG_CLOSE << endl;
+    *outputStream << LOG_TAG_OPEN << Qt::endl;
+    *outputStream << DATE_TIME_TAG.arg(timestamp.toString(configuration->getTimestampFormat())) << Qt::endl;
+    *outputStream << LEVEL_TAG.arg(lvl) << Qt::endl;
+    *outputStream << OWNER_TAG.arg(owner) << Qt::endl;
+    *outputStream << MESSAGE_TAG.arg(message) << Qt::endl;
+    *outputStream << LINE_TAG.arg(lineNumber) << Qt::endl;
+    *outputStream << FUNCTION_TAG.arg(functionName) << Qt::endl;
+    *outputStream << LOG_TAG_CLOSE << Qt::endl;
 
 }
 

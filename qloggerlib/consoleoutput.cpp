@@ -22,6 +22,7 @@
 #include "consoleoutput.h"
 
 #include <QDateTime>
+#include <QIODevice>
 
 #include "configuration.h"
 
@@ -50,7 +51,7 @@ void ConsoleOutput::write(const QString message,
                                        message, owner,
                                        levelToString(lvl),
                                        timestamp.toString(configuration->getTimestampFormat()),
-                                       functionName, lineNumber) << endl;
+                                       functionName, lineNumber) << Qt::endl;
 }
 
 void ConsoleOutput::close()

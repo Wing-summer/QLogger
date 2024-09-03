@@ -36,7 +36,7 @@ JSONOutput::~JSONOutput()
     if(!outputFile.isNull() && outputFile->isOpen())
     {
         // end current json file.
-        *outputStream << endl << JSON_FILE_END << endl;
+        *outputStream << Qt::endl << JSON_FILE_END << Qt::endl;
     }
     PlainTextOutput::close();
 }
@@ -50,7 +50,7 @@ void JSONOutput::write(const QString message, const QString owner,
             && (outputFile->size() > configuration->getFileMaxSizeInBytes()))
     {
         // end current json file.
-        *outputStream << endl << JSON_FILE_END << endl;
+        *outputStream << Qt::endl << JSON_FILE_END << Qt::endl;
     }
 
     if(outputFile.isNull() //if there is no file
@@ -60,7 +60,7 @@ void JSONOutput::write(const QString message, const QString owner,
         createNextFile(); // create a new file
 
         // start the xml file.
-        *outputStream << JSON_FILE_START << endl;
+        *outputStream << JSON_FILE_START << Qt::endl;
         // the first line will start without adding the comma
         QString lineNumberStr = QString("%1").arg(lineNumber);
         *outputStream << JSON_LOG_ENTRY.arg(owner, levelToString(lvl),
@@ -70,7 +70,7 @@ void JSONOutput::write(const QString message, const QString owner,
     else // continues the file normally
     {
         // adds a comma and jump to the next line, in the end of the file there will be no comma
-        *outputStream << "," << endl;
+        *outputStream << "," << Qt::endl;
         QString lineNumberStr = QString("%1").arg(lineNumber);
         *outputStream << JSON_LOG_ENTRY.arg(owner, levelToString(lvl),
                                             message, timestamp.toString(configuration->getTimestampFormat()),

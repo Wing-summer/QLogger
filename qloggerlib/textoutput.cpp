@@ -26,7 +26,10 @@
 
 #include <QDateTime>
 #include <QDir>
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QTextCodec>
+#endif
 
 using namespace std;
 
@@ -65,7 +68,12 @@ void PlainTextOutput::createNextFile()
 
     // enables the output to text mode and have correct line breaks
     outputStream->device()->setTextModeEnabled(true);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    outputStream->setEncoding(QStringConverter::Utf8);
+#else
     outputStream->setCodec(QTextCodec::codecForName("UTF-8"));
+#endif
 }
 
 void PlainTextOutput::write(const QString message,
